@@ -13,7 +13,7 @@ class BookInfo extends Component {
 
 	render(){
 		const {book, books} = this.props
-		const match = books.filter((item)=>item.title===book.title)[0]
+		const match = books.find((item)=>item.id===book.id)
 		if(match){
 			 book.shelf=match.shelf
 		}
