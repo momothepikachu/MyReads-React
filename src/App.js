@@ -5,6 +5,8 @@ import './App.css'
 import MainPage from './MainPage'
 import SearchPage from './SearchPage'
 
+import {Provider} from 'react-redux'
+
 class BooksApp extends React.Component {
   state = {
     books: []
