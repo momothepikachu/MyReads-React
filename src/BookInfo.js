@@ -1,15 +1,20 @@
 import React, {Component} from 'react'
-import * as BooksAPI from './BooksAPI'
 
+import { connect } from 'react-redux'
+import { update, getAll } from './actions/BooksAPI'
 
 class BookInfo extends Component {
 	changeShelf = (e)=>{
 		e.preventDefault()
-		const value = e.target.value
-		BooksAPI.update(this.props.book, value).then((res)=>{
-			this.props.updateBooks()
-		})
-	}
+    const value = e.target.value
+    this.props.update(this.props.book, value)
+  }
+  
+  componentWillReceiveProps(nextProps){
+    if(nextProps.update){
+      this.props.getAll()
+    }
+  }
 
 	render(){
 		const {book, books} = this.props
@@ -38,4 +43,9 @@ class BookInfo extends Component {
 	}
 }
 
-export default BookInfo
+const mapStateToProps = state =>({
+  books: state.books,
+  update: state.update,
+})
+
+export default connect(mapStateToProps, { update, getAll })(BookInfo)

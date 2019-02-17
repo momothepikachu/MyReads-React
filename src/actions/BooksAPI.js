@@ -1,4 +1,3 @@
-
 import types from './types'
 
 const api = "https://reactnd-books-api.udacity.com"
@@ -45,7 +44,7 @@ export const update = (book, shelf) => dispatch => {
   })
     .then(res => res.json())
     .then(data => dispatch({
-      type: UPDATE_BOOK,
+      type: types.UPDATE_BOOK,
       payload: data
     }))
 }
@@ -62,7 +61,7 @@ export const search = (query) => dispatch => {
   })
     .then(res => res.json())
     .then(data => dispatch({
-      type: SEARCH_BOOKS,
+      type: types.SEARCH_BOOKS,
       payload: data.books
     }))
 }

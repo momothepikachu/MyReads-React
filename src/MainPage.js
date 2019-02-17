@@ -3,13 +3,21 @@ import {Link} from 'react-router-dom'
 import BookShelf from './BookShelf'
 import PropTypes from 'prop-types'
 
+import { connect} from 'react-redux';
+import { getAll } from './actions/BooksAPI'
+
+
 class MainPage extends Component {
-  static propTypes = {
-    books: PropTypes.array.isRequired,
-    updateBooks: PropTypes.func.isRequired
+  // static propTypes = {
+  //   books: PropTypes.array.isRequired,
+  //   updateBooks: PropTypes.func.isRequired
+  // }
+  componentWillMount(){
+    this.props.getAll();
   }
+
 	render(){
-    const {books, updateBooks} = this.props
+    const {books} = this.props
     const bookShelfTitles = ['Currently Reading', 'Want to Read', 'Read']
     let bookList = []
     if (books) {
@@ -31,7 +39,6 @@ class MainPage extends Component {
                   <div className="bookshelf-books">
                     <BookShelf
                       shelfInfo={list}
-                      updateBooks={updateBooks}
                       books={books}
                     />
                   </div>
@@ -50,4 +57,8 @@ class MainPage extends Component {
 	}
 }
 
-export default MainPage
+const mapStateToProps = state =>({
+  books: state.books,
+})
+
+export default connect(mapStateToProps, { getAll })(MainPage)

@@ -1,29 +1,17 @@
 import React, {Component} from 'react'
-import * as BooksAPI from './BooksAPI'
 import {Link} from 'react-router-dom'
 import sortBy from 'sort-by'
 import BookInfo from './BookInfo'
 
+import { connect } from 'react-redux'
+import { search } from './actions/BooksAPI'
+
 class SearchPage extends Component {
-	state = {
-		results: []
-	}
 	updateResults = (query)=>{
-		BooksAPI.search(query.trim()).then((res)=>{
-			if (res && res.length) {
-				this.setState({
-					results: res
-				})				
-			} else{
-				this.setState({
-					results: []
-				})				
-			}
-		})		
+		this.props.search(query.trim())
 	}
 	render(){
-		const {updateBooks, books} = this.props
-		const {results} = this.state	
+		const {results} = this.props	
 		console.log(results)	
 		return (
 	      <div className="search-books">
@@ -41,8 +29,6 @@ class SearchPage extends Component {
 	          		<li key={book.id}>
 	          			<BookInfo
 	          				book={book}
-	          				updateBooks={updateBooks}
-	          				books={books}
 	          			/>
 	          		</li>
 	          	))}
@@ -53,4 +39,8 @@ class SearchPage extends Component {
 	}
 }
 
-export default SearchPage
+const mapStateToProps = state =>({
+  results: state.results,
+})
+
+export default connect(mapStateToProps, { search })(SearchPage)
