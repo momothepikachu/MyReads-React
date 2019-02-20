@@ -12,7 +12,6 @@ class SearchPage extends Component {
 	}
 	render(){
 		const {results} = this.props	
-		console.log(results)	
 		return (
 	      <div className="search-books">
 	        <div className="search-books-bar">

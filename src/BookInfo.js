@@ -8,14 +8,9 @@ class BookInfo extends Component {
 		e.preventDefault()
     const value = e.target.value
     this.props.update(this.props.book, value)
+    this.props.getAll()
   }
   
-  componentWillReceiveProps(nextProps){
-    if(nextProps.update){
-      this.props.getAll()
-    }
-  }
-
 	render(){
 		const {book, books} = this.props
 		const match = books.find((item)=>item.id===book.id)
